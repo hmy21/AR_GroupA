@@ -779,7 +779,6 @@ GameObject:
   - component: {fileID: 1827563066}
   - component: {fileID: 1827563070}
   - component: {fileID: 1827563069}
-  - component: {fileID: 1827563071}
   m_Layer: 0
   m_Name: AR Session
   m_TagString: Untagged
@@ -861,23 +860,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _arTrackedImageManager: {fileID: 265723791}
   robotPrefab: {fileID: 1727021956971022, guid: 55d9ed943dc797141a39b7368f7a74c3, type: 3}
---- !u!114 &1827563071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827563065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_OriginBaseGameObject: {fileID: 1827563065}
-  m_CameraFloorOffsetObject: {fileID: 0}
-  m_RequestedTrackingOriginMode: 0
-  m_CameraYOffset: 1.1176
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
