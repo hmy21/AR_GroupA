@@ -845,7 +845,7 @@ MonoBehaviour:
   _arPlaneManager: {fileID: 265723790}
   _arPointCloudManager: {fileID: 265723789}
   _arRaycastManager: {fileID: 265723792}
-  _robotPrefab: {fileID: 1727021956971022, guid: 55d9ed943dc797141a39b7368f7a74c3, type: 3}
+  _robotPrefab: {fileID: 2897652448301822202, guid: f4c8663af0c81fe40b4938f4b32b4e4f, type: 3}
 --- !u!114 &1827563070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arTrackedImageManager: {fileID: 265723791}
-  robotPrefab: {fileID: 1727021956971022, guid: 55d9ed943dc797141a39b7368f7a74c3, type: 3}
+  robotPrefab: {fileID: 2897652448301822202, guid: f4c8663af0c81fe40b4938f4b32b4e4f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
