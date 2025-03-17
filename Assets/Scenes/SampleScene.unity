@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 265723787}
   - component: {fileID: 265723789}
   - component: {fileID: 265723790}
+  - component: {fileID: 265723791}
+  - component: {fileID: 265723792}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -202,6 +204,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 2305707501946476744, guid: 6d8e49e072be6ef4fb1ceed5573ca357, type: 3}
   m_DetectionMode: -1
+--- !u!114 &265723791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265723786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dea56a9eaadd1c439095de4f9a371cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedLibrary: {fileID: 11400000, guid: d0257bc282f0efc4d9a100542f40483b, type: 2}
+  m_MaxNumberOfMovingImages: 0
+  m_TrackedImagePrefab: {fileID: 0}
+--- !u!114 &265723792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265723786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RaycastPrefab: {fileID: 0}
 --- !u!1001 &782628375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -748,6 +778,8 @@ GameObject:
   - component: {fileID: 1827563067}
   - component: {fileID: 1827563066}
   - component: {fileID: 1827563070}
+  - component: {fileID: 1827563069}
+  - component: {fileID: 1827563071}
   m_Layer: 0
   m_Name: AR Session
   m_TagString: Untagged
@@ -797,7 +829,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1827563070
+--- !u!114 &1827563069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -813,6 +845,39 @@ MonoBehaviour:
   _planeText: {fileID: 1114040582}
   _arPlaneManager: {fileID: 265723790}
   _arPointCloudManager: {fileID: 265723789}
+  _arRaycastManager: {fileID: 265723792}
+  _robotPrefab: {fileID: 1727021956971022, guid: 55d9ed943dc797141a39b7368f7a74c3, type: 3}
+--- !u!114 &1827563070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827563065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9069408769062d841816e1ed2d492d8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arTrackedImageManager: {fileID: 265723791}
+  robotPrefab: {fileID: 1727021956971022, guid: 55d9ed943dc797141a39b7368f7a74c3, type: 3}
+--- !u!114 &1827563071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827563065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
+  m_OriginBaseGameObject: {fileID: 1827563065}
+  m_CameraFloorOffsetObject: {fileID: 0}
+  m_RequestedTrackingOriginMode: 0
+  m_CameraYOffset: 1.1176
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

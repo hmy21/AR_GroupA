@@ -1,73 +1,146 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.XR;
 using UnityEngine.XR.ARFoundation;
-using Unity.Collections;
-
 using TMPro;
+using UnityEngine.XR.ARSubsystems;
 
 public class ARUnitLab : MonoBehaviour
 {
-    int plane_count = 0;
-    int point_count = 0;
+
     [SerializeField] private TMP_Text _stateText;
     [SerializeField] private TMP_Text _planeText;
     [SerializeField] private ARPlaneManager _arPlaneManager;
     [SerializeField] private ARPointCloudManager _arPointCloudManager;
-    private HashSet<ARPlane> _subsumedPlanes = new HashSet<ARPlane>();
+    [SerializeField] private ARRaycastManager _arRaycastManager;
+    [SerializeField] private GameObject _robotPrefab;
+
+    private List<ARPlane> _activePlanes = new List<ARPlane>();
+    private List<ARPointCloud> _activePointClouds = new List<ARPointCloud>();
+
+    // Store raycast hits
+    private List<ARRaycastHit> _raycastHits = new List<ARRaycastHit>();
+
+    // GameObject tobe spawned; null at first
+    private GameObject _spawnedObject = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        // Add callbacks
         ARSession.stateChanged += OnARSessionStateChanged;
-        _arPlaneManager.planesChanged += OnARPlanesChanged;
+        _arPlaneManager.planesChanged += OnPlanesChanged;
+        _arPointCloudManager.pointCloudsChanged += OnPointCloudsChanged;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // plane_count can be obtained directly from trackables.count
-        // plane_count = _arPlaneManager.trackables.count;
 
-        // point_count has to be computed by accummulate the points from all pointclouds
-        int point_count = 0;
-        foreach (var trackable in _arPointCloudManager.trackables)
+        // handle texts
+        int numOfPoints = 0;
+        foreach (ARPointCloud cloud in _activePointClouds)
         {
-            if (trackable.positions is NativeSlice<Vector3> non_null_positions) point_count += non_null_positions.Length;
+            numOfPoints = numOfPoints + cloud.identifiers.Value.Length;
         }
+        _planeText.text = $"% planes: {_activePlanes.Count}\n % points: {numOfPoints}";
 
-        // Update the plane text
-        _planeText.text = plane_count + " Planes" + "\n" + point_count + " Points";
+
+        // handle screen touches
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (_arRaycastManager.Raycast(touch.position, _raycastHits, TrackableType.PlaneWithinPolygon))
+            {
+                var hitPose = _raycastHits[0].pose;
+                // if a robot has not been instantiated in the scene
+                if (_spawnedObject == null)
+                {
+                    _spawnedObject = GameObject.Instantiate(_robotPrefab, hitPose.position, hitPose.rotation);
+                }
+                else {
+                    // Object already instantiated. Move it at touch position 
+                    _spawnedObject.transform.position = hitPose.position;
+                }
+            }
+        }
     }
 
     private void OnARSessionStateChanged(ARSessionStateChangedEventArgs args)
     {
-        // Update the state text
-        _stateText.text = args.ToString();
+        _stateText.text = args.state.ToString();
     }
 
-    private void OnARPlanesChanged(ARPlanesChangedEventArgs args)
+    private void OnPlanesChanged(ARPlanesChangedEventArgs args)
     {
-        // plane_count can also be computed by getting the changes from the event handler
-        // plane_count += args.added.Count - args.removed.Count;
-
-        plane_count += args.added.Count;
-
-        plane_count -= args.removed.Count;
-
-        foreach (var updatedPlane in args.updated)
+        // handle added planes
+        foreach (ARPlane plane in args.added)
         {
-            if (updatedPlane.subsumedBy != null)
+            if (!_activePlanes.Contains(plane))
             {
-                if (!_subsumedPlanes.Contains(updatedPlane))
+                _activePlanes.Add(plane);
+            }
+        }
+
+        // handle removed planes
+        foreach (ARPlane plane in args.removed)
+        {
+            if (_activePlanes.Contains(plane))
+            {
+                _activePlanes.Remove(plane);
+            }
+        }
+
+        // handle merged planes
+        foreach (ARPlane plane in args.updated)
+        {
+            if (plane.subsumedBy != null && _activePlanes.Contains(plane.subsumedBy))
+            {
+                _activePlanes.Remove(plane);
+            }
+            else if (plane.subsumedBy == null && !_activePlanes.Contains(plane))
+            {
+                _activePlanes.Add(plane);
+            }
+        }
+    }
+
+    private void OnPointCloudsChanged(ARPointCloudChangedEventArgs args)
+    {
+        // handle added clouds
+        foreach (ARPointCloud cloud in args.added)
+        {
+            if (!_activePointClouds.Contains(cloud))
+            {
+                _activePointClouds.Add(cloud);
+            }
+        }
+
+        // handle removed clouds
+        foreach (ARPointCloud cloud in args.removed)
+        {
+            if (_activePointClouds.Contains(cloud))
+            {
+                _activePointClouds.Remove(cloud);
+            }
+        }
+
+        // handle updated clouds
+        foreach (ARPointCloud cloud in args.updated)
+        {
+            if (_activePointClouds.Contains(cloud))
+            {
+                int index = _activePointClouds.IndexOf(cloud);
+                if (index != -1)
                 {
-                    plane_count--; // 立即减少被合并的平面
-                    _subsumedPlanes.Add(updatedPlane); // 记录它，防止在 removed 里再次处理
+                    _activePointClouds[index] = cloud;
                 }
             }
         }
-         _subsumedPlanes.RemoveWhere(plane => args.removed.Contains(plane));
-        
-
     }
 }
+
+
+
