@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.XR.ARFoundation;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 
 public class EnemyGenerationTrack : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class EnemyGenerationTrack : MonoBehaviour
     private Quaternion tracked_rotation;
     private GameObject GenerationPoint;
     private Dictionary<ARTrackedImage, GameObject> TrackedImage = new Dictionary<ARTrackedImage, GameObject>();
-    private Dictionary<ARTrackedImage, Vector3> tracked_positions  = new Dictionary<ARTrackedImage, Vector3>();
+    private Dictionary<ARTrackedImage, Vector3> tracked_positions = new Dictionary<ARTrackedImage, Vector3>();
     private Dictionary<ARTrackedImage, Quaternion> tracked_rotations = new Dictionary<ARTrackedImage, Quaternion>();
 
     private GameObject testOBJ;
@@ -30,6 +31,11 @@ public class EnemyGenerationTrack : MonoBehaviour
     void OnDisable()
     {
         _arTrackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
+    }
+
+    void Start()
+    {
+
     }
 
     void Update()
@@ -55,10 +61,14 @@ public class EnemyGenerationTrack : MonoBehaviour
         foreach (var newImage in eventArgs.added)
         {
             // Handle added event
-            // string imageName = newImage.referenceImage.name;
-
-            GameObject newGenerationPoint = Instantiate(GenerationPointPrefabs, newImage.transform.position, newImage.transform.rotation);
-            TrackedImage[newImage] = newGenerationPoint;
+            string imageName = newImage.referenceImage.name;
+            if (imageName.Contains("Enemy"))
+            {
+                GameObject newGenerationPoint = Instantiate(GenerationPointPrefabs, newImage.transform.position, newImage.transform.rotation);
+                TrackedImage[newImage] = newGenerationPoint;
+            }
+            
+            
 
         }
 

@@ -27,5 +27,5 @@ MonoBehaviour:
       m_GuidHigh: 3902119682793141272
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 0
-    m_Name: EnemyImg
+    m_Name: EnemyImg1
     m_Texture: {fileID: 0}
