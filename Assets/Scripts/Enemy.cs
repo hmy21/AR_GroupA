@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] int Health;
     [SerializeField] int MaxHealth;
+    [SerializeField] float movingSpeed;
 
     public void takeDamage(int damage)
     {

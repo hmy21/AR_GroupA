@@ -5,8 +5,42 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] GameState currentGameState;
+    public GameState GameState => currentGameState;
     [SerializeField] private Camera gameCamera;
-    public Vector3 cameraPosition{get => gameCamera.transform.position;}
+    public Vector3 cameraPosition { get => gameCamera.transform.position; }
+    public static event Action<GameState> OnGameStateChange;
+
+    public void UpdateGameState(GameState newState)
+    {
+        currentGameState = newState;
+        switch (newState)
+        {
+            case GameState.GameStart:
+                HandleGameStart();
+                break;
+            case GameState.GameOver:
+                HandleGameOver();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+
+        }
+        OnGameStateChange?.Invoke(newState);
+
+    }
+
+    private void HandleGameOver()
+    {
+        
+    }
+
+    private void HandleGameStart()
+    {
+        
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,4 +52,10 @@ public class GameManager : Singleton<GameManager>
     {
 
     }
+}
+
+public enum GameState
+{
+    GameStart,
+    GameOver,
 }
