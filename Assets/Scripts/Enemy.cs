@@ -20,6 +20,11 @@ public class Enemy : MonoBehaviour
     {
         Destroy(this);
     }
+
+    private void shot()
+    {
+
+    }
     // Start is called before the first frame update
     void Start()
     {
