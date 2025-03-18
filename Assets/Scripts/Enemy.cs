@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
 
     private void beKilled()
     {
+        GameManager.Instance.getScore(1);
         Destroy(this);
     }
 
