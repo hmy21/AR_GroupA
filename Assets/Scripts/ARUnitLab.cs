@@ -28,7 +28,7 @@ public class ARUnitLab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         // Add callbacks
         ARSession.stateChanged += OnARSessionStateChanged;
         _arPlaneManager.planesChanged += OnPlanesChanged;
@@ -60,7 +60,8 @@ public class ARUnitLab : MonoBehaviour
                 {
                     _spawnedObject = GameObject.Instantiate(_robotPrefab, hitPose.position, hitPose.rotation);
                 }
-                else {
+                else
+                {
                     // Object already instantiated. Move it at touch position 
                     _spawnedObject.transform.position = hitPose.position;
                 }

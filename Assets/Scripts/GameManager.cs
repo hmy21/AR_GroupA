@@ -32,12 +32,12 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameOver()
     {
-        
+        Debug.Log("GameOver");
     }
 
     private void HandleGameStart()
     {
-        
+        Debug.Log("GameStart");
     }
 
 
