@@ -472,9 +472,9 @@ MonoBehaviour:
   MaxHealth: 10
   movingSpeed: 0
   BulletPrefabs: {fileID: 8259819578936259430, guid: a331ce6e433d4164493a2b480e490cbf, type: 3}
-  bulletSpeed: 0
+  bulletSpeed: 0.3
   TestAim: {fileID: 0}
-  shotPlace: {fileID: 0}
+  shotPlace: {fileID: 4104369562061054614}
 --- !u!1 &1953112362937526
 GameObject:
   m_ObjectHideFlags: 0
