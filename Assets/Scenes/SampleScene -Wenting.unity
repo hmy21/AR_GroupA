@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5576ee944e380045b51ab290e8b9dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGameState: 0
+  gameState: 0
   gameCamera: {fileID: 1552001735}
 --- !u!1001 &782628375
 PrefabInstance:
@@ -763,8 +763,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e92715629354b489c8e7712f558072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 3
-  playerHealth: 0
 --- !u!65 &1552001737
 BoxCollider:
   m_ObjectHideFlags: 0
