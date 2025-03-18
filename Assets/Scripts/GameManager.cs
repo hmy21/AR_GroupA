@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    public void getScore(int num)
+    public void winScore(int num)
     {
         score+= num;
     }
