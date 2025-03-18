@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     public void getDamage()
     {
-        playerHealth -= 1;
+        playerHealth --;
         if (playerHealth <= 0)
         {
             GameManager.Instance.UpdateGameState(GameState.GameOver);
