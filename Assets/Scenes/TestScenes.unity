@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: TestAim
       value: 
       objectReference: {fileID: 1746788448}
+    - target: {fileID: 8536185239341324226, guid: aefcb32446054c2478530b36d8d3415b, type: 3}
+      propertyPath: movingSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

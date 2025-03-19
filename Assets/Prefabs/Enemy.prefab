@@ -470,7 +470,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 10
   MaxHealth: 10
-  movingSpeed: 0
+  movingSpeed: 0.5
+  moveDuration: 2
+  pauseDuration: 1
   BulletPrefabs: {fileID: 8259819578936259430, guid: a331ce6e433d4164493a2b480e490cbf, type: 3}
   bulletSpeed: 0.3
   TestAim: {fileID: 0}
