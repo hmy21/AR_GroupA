@@ -26,12 +26,12 @@ public class Enemy : MonoBehaviour
     private void beKilled()
     {
         GameManager.Instance.winScore(1);
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("get hit");
+        // Debug.Log("get hit");
         if (other.CompareTag("Bullet"))
         {
             takeDamage(10);
@@ -79,9 +79,9 @@ public class Enemy : MonoBehaviour
 
     private void OnGameStateChange(GameState gameState)
     {
-        if (gameState == GameState.GameOver)
+        if (gameState == GameState.GameStart)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

@@ -149,19 +149,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4238967018504954, guid: aefcb32446054c2478530b36d8d3415b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.032939423
       objectReference: {fileID: 0}
     - target: {fileID: 4238967018504954, guid: aefcb32446054c2478530b36d8d3415b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4238967018504954, guid: aefcb32446054c2478530b36d8d3415b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.9994574
       objectReference: {fileID: 0}
     - target: {fileID: 4238967018504954, guid: aefcb32446054c2478530b36d8d3415b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4238967018504954, guid: aefcb32446054c2478530b36d8d3415b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4238967018504954, guid: aefcb32446054c2478530b36d8d3415b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 176.225
       objectReference: {fileID: 0}
     - target: {fileID: 4238967018504954, guid: aefcb32446054c2478530b36d8d3415b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -506,6 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGameState: 0
   gameCamera: {fileID: 165765344}
+  score: 0
 --- !u!4 &1661366661
 Transform:
   m_ObjectHideFlags: 0
