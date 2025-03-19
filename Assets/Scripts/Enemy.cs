@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int Health =10;
-    [SerializeField] int MaxHealth =10;
+    [SerializeField] int Health = 10;
+    [SerializeField] int MaxHealth = 10;
     [SerializeField] float movingSpeed;
     [SerializeField] GameObject BulletPrefabs;
     [SerializeField] float bulletSpeed;
@@ -32,7 +32,8 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("get hit");
-        if(other.CompareTag("Bullet")){
+        if (other.CompareTag("Bullet"))
+        {
             takeDamage(10);
         }
     }
@@ -62,11 +63,25 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         Health = MaxHealth;
+        GameManager.OnGameStateChange += OnGameStateChange;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChange -= OnGameStateChange;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void OnGameStateChange(GameState gameState)
+    {
+        if (gameState == GameState.GameOver)
+        {
+            Destroy(this);
+        }
     }
 }

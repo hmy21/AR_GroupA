@@ -34,7 +34,7 @@ public class GameManager : Singleton<GameManager>
 
     public void winScore(int num)
     {
-        score+= num;
+        score += num;
     }
 
     private void HandleGameOver()
@@ -66,5 +66,6 @@ public enum GameState
     GameStart,
     PauseMenu,
     GameOver,
-    StartMenu
+    StartMenu,
+    GameRestar
 }
