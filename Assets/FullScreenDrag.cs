@@ -2,13 +2,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using BigRookGames.Weapons;
 
-
 public class FullScreenDrag : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [Tooltip("准星的 RectTransform")]
     public RectTransform crosshairRect;
 
-    [Tooltip("用于触发开火的枪械控制器")]
+    [Tooltip("枪械控制器脚本，用于开火")]
     public GunfireController gunController;
 
     [Tooltip("轻点判定的移动阈值（像素）")]
@@ -27,7 +26,7 @@ public class FullScreenDrag : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         if (crosshairRect != null)
         {
-            // 更新准星位置，考虑 Canvas 缩放因子
+            // 拖拽准星
             crosshairRect.anchoredPosition += eventData.delta / (GetComponentInParent<Canvas>().scaleFactor);
             isDragging = true;
         }
@@ -35,11 +34,12 @@ public class FullScreenDrag : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        // 计算手指总移动距离
         float distance = (eventData.position - pointerDownPos).magnitude;
+        Debug.Log($"OnPointerUp invoked, distance: {distance}");
+        // 如果移动距离小于阈值，认为是轻点
         if (distance < tapThreshold)
         {
-            // 认为是轻点，触发枪械开火
+            Debug.Log("Tap detected, triggering FireWeapon()");
             if (gunController != null)
             {
                 gunController.FireWeapon();

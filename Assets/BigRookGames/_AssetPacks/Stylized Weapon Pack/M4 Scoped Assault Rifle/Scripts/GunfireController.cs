@@ -11,8 +11,9 @@ namespace BigRookGames.Weapons
         public Vector2 audioPitch = new Vector2(.9f, 1.1f);
 
         // --- Muzzle ---
-        [Tooltip("枪口位置对象，用于确定发射子弹的位置")]
+        [Tooltip("枪口火光预制件")]
         public GameObject muzzlePrefab;
+        [Tooltip("枪口位置对象，用于确定火光/子弹的生成位置")]
         public GameObject muzzlePosition;
 
         // --- Config ---
@@ -52,13 +53,7 @@ namespace BigRookGames.Weapons
 
         private void Update()
         {
-            // 每帧更新枪口朝向：根据当前准星位置计算射击方向
-            UpdateGunAim();
-
-            // 处理触摸输入：轻点屏幕触发开火（拖拽由 FullScreenDrag 脚本管理）
-            HandleTouchInput();
-
-            // Toggle scope 状态
+            // 如果你需要在此进行其他逻辑，如 scopeActive 切换
             if (scope && lastScopeState != scopeActive)
             {
                 lastScopeState = scopeActive;
@@ -67,112 +62,65 @@ namespace BigRookGames.Weapons
         }
 
         /// <summary>
-        /// 根据准星 UI 的位置更新枪口发射方向
-        /// </summary>
-        private void UpdateGunAim()
-        {
-            if (Camera.main != null && crosshairUI != null && muzzlePosition != null)
-            {
-                // 获取准星的屏幕坐标（世界坐标不适用，因为它是在 Canvas 中）
-                Vector3 screenPoint = crosshairUI.position;
-                // 从摄像机中生成一条射线，射线起点为摄像机位置，方向为从屏幕点延伸出去
-                Ray ray = Camera.main.ScreenPointToRay(screenPoint);
-                // 取射线在一定距离（例如 10 米处）的一个点作为目标
-                float targetDistance = 10f;
-                Vector3 targetPoint = ray.GetPoint(targetDistance);
-                // 计算从枪口位置到目标点的方向
-                Vector3 newDir = (targetPoint - muzzlePosition.transform.position).normalized;
-                // 更新枪口的 forward，使得子弹会沿着这个方向发射
-                muzzlePosition.transform.forward = newDir;
-            }
-        }
-
-        /// <summary>
-        /// 处理触摸输入：在轻点屏幕时触发开火
-        /// </summary>
-        private void HandleTouchInput()
-        {
-#if UNITY_EDITOR
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-                    return;
-                ShootFromMuzzle();
-            }
-#endif
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                // 当触摸结束且移动距离较小（轻点）时触发开火
-                if (touch.phase == TouchPhase.Ended && touch.deltaPosition.magnitude < 10f)
-                {
-                    ShootFromMuzzle();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 从枪口位置发射子弹
-        /// </summary>
-        private void ShootFromMuzzle()
-        {
-            FireWeapon();
-        }
-
-        /// <summary>
-        /// 发射子弹：在枪口位置生成子弹，并施加初始力
+        /// 当 FullScreenDrag 检测到轻点屏幕时，会调用此方法触发射击
         /// </summary>
         public void FireWeapon()
         {
             timeLastFired = Time.time;
             Camera cam = Camera.main;
-            // 生成子弹（添加位置偏移和旋转补偿）
+            Debug.Log("GunfireController.FireWeapon() called");
+
+            // 计算基于准星的射线，用于销毁敌人
+            ShootFromCrosshair();
+
+            // 以下是原先发射子弹、生成枪口火光、播放音效等逻辑
+            // 若你需要子弹+火光，就保留；若你只想销毁敌人，可以注释掉子弹逻辑
+
+            // ---------- 子弹逻辑 ----------
             if (projectilePrefab != null && muzzlePosition != null)
             {
-                float offsetDistance = 0.2f; // 根据需要调整偏移距离
-                                             // 计算子弹生成位置 = 枪口位置 + 枪口 forward * offsetDistance
-                Vector3 spawnPos = muzzlePosition.transform.position + muzzlePosition.transform.forward * offsetDistance;
-                // 固定 spawnPos 的 Y 坐标与枪口一致（防止上下偏移）
+                // 定义 spawnDistance，用于将准星的屏幕坐标转换为世界坐标
+                float spawnDistance = 1.0f; // 例如 1 米
+                Vector3 screenPoint = new Vector3(crosshairUI.position.x, crosshairUI.position.y, spawnDistance);
+                Vector3 targetPoint = cam.ScreenToWorldPoint(screenPoint);
+                // 计算发射方向：从枪口位置指向目标点
+                Vector3 fireDir = (targetPoint - muzzlePosition.transform.position).normalized;
+
+                // 计算子弹生成位置：从枪口位置沿 fireDir 偏移一定距离，避免与枪口重叠
+                float offsetDistance = -0.5f;
+                Vector3 spawnPos = muzzlePosition.transform.position + fireDir * offsetDistance;
+                // 固定 Y 坐标与枪口一致
                 spawnPos.y = muzzlePosition.transform.position.y;
 
-                // 初始旋转直接使用枪口旋转
-                Quaternion muzzleCorrection = Quaternion.Euler(0f, -90f, 0f);
-                Quaternion bulletRot = muzzlePosition.transform.rotation * muzzleCorrection;
-                GameObject bullet = Instantiate(projectilePrefab, muzzlePosition.transform.position, bulletRot);
+                // 生成基础旋转，使子弹朝向 fireDir
+                //Quaternion baseRot = Quaternion.LookRotation(fireDir, Vector3.up);
 
-                bullet.transform.parent = null; // 脱离父级，确保独立物理控制
+                // 旋转补偿：如果子弹默认朝向是局部 X 轴，我们需要将其调整到正 Z 轴
+                // 尝试使用 -90° 或 90°，根据实际效果调整
+                Quaternion correction = Quaternion.Euler(0, 0, 0);  // 若不合适，可试 Quaternion.Euler(0, 90f, 0)
+                Quaternion spawnRot = baseRot * correction;
 
-              
-                // 这样模型的 up 将转为 forward，使得子弹视觉上与物理发射方向一致
-                bullet.transform.rotation = Quaternion.Euler(90f, 0f, 0f) * bullet.transform.rotation;
+                GameObject bullet = Instantiate(projectilePrefab, spawnPos, spawnRot);
+                bullet.transform.parent = null; // 脱离父级
 
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    // 使用枪口的 forward 方向施加力（即正 Z 轴方向）
-                    rb.AddForce(muzzlePosition.transform.forward * bulletForce, ForceMode.Impulse);
+                    rb.AddForce(fireDir * bulletForce, ForceMode.Impulse);
                 }
 
-                Debug.Log($"Bullet instantiated at: {bullet.transform.position}, Bullet forward: {bullet.transform.forward}");
+                Debug.Log($"Bullet spawned at: {spawnPos}, fireDir: {fireDir}, bullet.forward: {bullet.transform.forward}");
             }
 
-            if (projectileToDisableOnFire != null)
-            {
-                projectileToDisableOnFire.SetActive(false);
-                Invoke("ReEnableDisabledProjectile", 3f);
-            }
-
-            // ---------- 枪口火光 ----------
-            // 如果火光预制件存在，生成火光并进行旋转补偿
             if (muzzlePrefab != null && muzzlePosition != null)
             {
-                // 如果火光预制件默认朝向为向右（local forward 为 X 轴），我们需要绕 Y 轴旋转 -90°，使其朝向枪口的 forward（正 Z 轴）
-                Quaternion muzzleCorrection = Quaternion.Euler(0f, -90f, 0f);
-                Quaternion muzzleRot = muzzlePosition.transform.rotation * muzzleCorrection;
+                // 使用与子弹相同的 spawnRot 生成火光，使火光和子弹方向一致
+                // 这里直接使用 muzzlePosition 的 forward 方向（假设 UpdateGunAim() 或其他逻辑已更新）
+                Quaternion muzzleRot = muzzlePosition.transform.rotation;
                 Instantiate(muzzlePrefab, muzzlePosition.transform.position, muzzleRot);
             }
 
-            // ---------- 可选：禁用某个对象（如内置枪械显示效果） ----------
+            // ---------- 可选：禁用某个对象（如内置枪械模型） ----------
             if (projectileToDisableOnFire != null)
             {
                 projectileToDisableOnFire.SetActive(false);
@@ -180,35 +128,52 @@ namespace BigRookGames.Weapons
             }
 
             // ---------- 播放枪声 ----------
-            if (source != null)
+            if (source != null && GunShotClip != null)
             {
-                if (source.transform.IsChildOf(transform))
-                {
-                    source.Play();
-                }
-                else
-                {
-                    AudioSource newAS = Instantiate(source);
-                    if ((newAS = Instantiate(source)) != null &&
-                        newAS.outputAudioMixerGroup != null &&
-                        newAS.outputAudioMixerGroup.audioMixer != null)
-                    {
-                        newAS.outputAudioMixerGroup.audioMixer.SetFloat("Pitch", Random.Range(audioPitch.x, audioPitch.y));
-                        newAS.pitch = Random.Range(audioPitch.x, audioPitch.y);
-                        newAS.PlayOneShot(GunShotClip);
-                        Destroy(newAS.gameObject, 4);
-                    }
-                }
+                // 播放音效
+                source.PlayOneShot(GunShotClip);
             }
         }
-
-
-
 
         private void ReEnableDisabledProjectile()
         {
             if (projectileToDisableOnFire != null)
                 projectileToDisableOnFire.SetActive(true);
+        }
+
+        /// <summary>
+        /// 以准星为屏幕坐标，射线检测敌人并销毁
+        /// </summary>
+        private void ShootFromCrosshair()
+        {
+            Debug.Log("ShootFromCrosshair() called in GunfireController");
+
+            Camera cam = Camera.main;
+            if (cam == null || crosshairUI == null)
+                return;
+
+            // 从准星屏幕坐标生成射线
+            Ray ray = cam.ScreenPointToRay(crosshairUI.position);
+            Debug.Log("Ray origin: " + ray.origin + ", direction: " + ray.direction);
+
+            // 若射线击中敌人，则销毁
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
+            {
+                Debug.Log("Raycast hit: " + hit.collider.name + " at " + hit.point);
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    Destroy(hit.collider.gameObject);
+                    Debug.Log("Enemy destroyed at " + hit.point);
+                }
+                else
+                {
+                    Debug.Log("Hit object tag: " + hit.collider.tag);
+                }
+            }
+            else
+            {
+                Debug.Log("Raycast did not hit any object.");
+            }
         }
     }
 }
