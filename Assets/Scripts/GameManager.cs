@@ -63,6 +63,8 @@ public class GameManager : Singleton<GameManager>
 
 public enum GameState
 {
+    //Summary:
+    //         The state for game start and restart.
     GameStart,
     PauseMenu,
     GameOver,

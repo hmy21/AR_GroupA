@@ -6,6 +6,9 @@ public class BulletMovement : MonoBehaviour
 {
     private Vector3 direction;
     private float speed;
+    [SerializeField] float maxExistTime = 10;
+    [SerializeField] float currentExistTime = 0;
+
 
     public void Initialize(Vector3 dir, float spd)
     {
@@ -15,6 +18,11 @@ public class BulletMovement : MonoBehaviour
 
     void Update()
     {
+        currentExistTime += Time.deltaTime;
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        if (currentExistTime >= maxExistTime)
+        {
+            Destroy(gameObject);
+        }
     }
 }
