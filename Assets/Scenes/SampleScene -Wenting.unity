@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5576ee944e380045b51ab290e8b9dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: 0
+  currentGameState: 0
   gameCamera: {fileID: 1552001735}
 --- !u!1001 &782628375
 PrefabInstance:
@@ -535,6 +535,7 @@ GameObject:
   - component: {fileID: 1552001731}
   - component: {fileID: 1552001737}
   - component: {fileID: 1552001736}
+  - component: {fileID: 1552001738}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -763,6 +764,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e92715629354b489c8e7712f558072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 3
+  playerHealth: 3
 --- !u!65 &1552001737
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -782,8 +785,35 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1552001738
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552001729}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1604084127
 GameObject:
   m_ObjectHideFlags: 0
