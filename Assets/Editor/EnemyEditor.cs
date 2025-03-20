@@ -18,5 +18,10 @@ public class EnemyEditor : Editor
             // 调用 Shot 方法
             enemy.Shot();
         }
+        if (GUILayout.Button("test"))
+        {
+            // 调用 Shot 方法
+            enemy.testFuntion();
+        }
     }
 }

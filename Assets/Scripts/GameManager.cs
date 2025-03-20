@@ -11,6 +11,8 @@ public class GameManager : Singleton<GameManager>
     public Vector3 cameraPosition { get => gameCamera.transform.position; }
     public static event Action<GameState> OnGameStateChange;
 
+    public int score;
+
     public void UpdateGameState(GameState newState)
     {
         currentGameState = newState;
@@ -28,6 +30,11 @@ public class GameManager : Singleton<GameManager>
         }
         OnGameStateChange?.Invoke(newState);
 
+    }
+
+    public void winScore(int num)
+    {
+        score += num;
     }
 
     private void HandleGameOver()
@@ -56,6 +63,11 @@ public class GameManager : Singleton<GameManager>
 
 public enum GameState
 {
+    //Summary:
+    //         The state for game start and restart.
     GameStart,
+    PauseMenu,
     GameOver,
+    StartMenu,
+    GameRestar
 }

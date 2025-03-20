@@ -35,7 +35,12 @@ public class EnemyGenerationTrack : MonoBehaviour
 
     void Start()
     {
+        GameManager.OnGameStateChange += OnGameStateChange;
+    }
 
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChange -= OnGameStateChange;
     }
 
     void Update()
@@ -67,8 +72,8 @@ public class EnemyGenerationTrack : MonoBehaviour
                 GameObject newGenerationPoint = Instantiate(GenerationPointPrefabs, newImage.transform.position, newImage.transform.rotation);
                 TrackedImage[newImage] = newGenerationPoint;
             }
-            
-            
+
+
 
         }
 
@@ -90,6 +95,14 @@ public class EnemyGenerationTrack : MonoBehaviour
             //     tracked_positions.Remove(removedImage);
             //     tracked_rotations.Remove(removedImage);
             // }
+        }
+    }
+
+    private void OnGameStateChange(GameState gameState)
+    {
+        if (gameState == GameState.GameStart)
+        {
+            
         }
     }
 
