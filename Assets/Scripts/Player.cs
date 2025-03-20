@@ -37,7 +37,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GameManager.Instance.GameState == GameState.PauseMenu)
+        {
+            return; // 暂停时不更新玩家状态
+        }
     }
 
     private void OnGameStateChange(GameState gameState)
