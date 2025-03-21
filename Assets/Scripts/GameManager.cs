@@ -2,16 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; // 引入 TextMeshPro 命名空间
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] GameState currentGameState;
     public GameState GameState => currentGameState;
+
     [SerializeField] private Camera gameCamera;
     public Vector3 cameraPosition { get => gameCamera.transform.position; }
     public static event Action<GameState> OnGameStateChange;
 
-    public int score;
+    public int score = 0;
+    public TextMeshProUGUI scoreText; // 关联 ScoreText
 
     public void UpdateGameState(GameState newState)
     {
@@ -32,18 +35,33 @@ public class GameManager : Singleton<GameManager>
 
     }
 
+    // 增加分数
     public void winScore(int num)
     {
         score += num;
+        UpdateScoreUI(); // 更新 UI
     }
 
+    // 更新分数 UI
+    private void UpdateScoreUI()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
+        }
+    }
+
+    // 处理游戏结束
     private void HandleGameOver()
     {
         Debug.Log("GameOver");
     }
 
+    // 处理游戏开始或重启
     private void HandleGameStart()
     {
+        score = 0; // 重新开始时分数归零
+        UpdateScoreUI(); // 重置 UI
         Debug.Log("GameStart");
     }
 
@@ -51,13 +69,14 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-
+        // 初始化 UI
+        UpdateScoreUI();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        // 可根据需要在 Update() 中添加逻辑
     }
 }
 

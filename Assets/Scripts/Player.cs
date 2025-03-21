@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     public void getDamage()
     {
-        playerHealth -= 1;
+        playerHealth --;
         if (playerHealth <= 0)
         {
             GameManager.Instance.UpdateGameState(GameState.GameOver);
@@ -37,7 +37,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GameManager.Instance.GameState == GameState.PauseMenu)
+        {
+            return; // 暂停时不更新玩家状态
+        }
     }
 
     private void OnGameStateChange(GameState gameState)
