@@ -73,27 +73,29 @@ namespace BigRookGames.Weapons
             // 计算基于准星的射线，用于销毁敌人
             ShootFromCrosshair();
 
+
+
             // 以下是原先发射子弹、生成枪口火光、播放音效等逻辑
             // 若你需要子弹+火光，就保留；若你只想销毁敌人，可以注释掉子弹逻辑
 
             // ---------- 子弹逻辑 ----------
-            if (projectilePrefab != null && muzzlePosition != null)
+           /*rojectilePrefab != null && muzzlePosition != null)
             {
                 // 定义 spawnDistance，用于将准星的屏幕坐标转换为世界坐标
-                float spawnDistance = 1.0f; // 例如 1 米
+                float spawnDistance = 0f; // 例如 1 米
                 Vector3 screenPoint = new Vector3(crosshairUI.position.x, crosshairUI.position.y, spawnDistance);
                 Vector3 targetPoint = cam.ScreenToWorldPoint(screenPoint);
                 // 计算发射方向：从枪口位置指向目标点
                 Vector3 fireDir = (targetPoint - muzzlePosition.transform.position).normalized;
 
                 // 计算子弹生成位置：从枪口位置沿 fireDir 偏移一定距离，避免与枪口重叠
-                float offsetDistance = -0.5f;
+                float offsetDistance = 0.5f;
                 Vector3 spawnPos = muzzlePosition.transform.position + fireDir * offsetDistance;
                 // 固定 Y 坐标与枪口一致
                 spawnPos.y = muzzlePosition.transform.position.y;
 
                 // 生成基础旋转，使子弹朝向 fireDir
-                //Quaternion baseRot = Quaternion.LookRotation(fireDir, Vector3.up);
+                Quaternion baseRot = Quaternion.LookRotation(fireDir, Vector3.up);
 
                 // 旋转补偿：如果子弹默认朝向是局部 X 轴，我们需要将其调整到正 Z 轴
                 // 尝试使用 -90° 或 90°，根据实际效果调整
@@ -110,14 +112,16 @@ namespace BigRookGames.Weapons
                 }
 
                 Debug.Log($"Bullet spawned at: {spawnPos}, fireDir: {fireDir}, bullet.forward: {bullet.transform.forward}");
-            }
+            }*/
 
             if (muzzlePrefab != null && muzzlePosition != null)
             {
                 // 使用与子弹相同的 spawnRot 生成火光，使火光和子弹方向一致
                 // 这里直接使用 muzzlePosition 的 forward 方向（假设 UpdateGunAim() 或其他逻辑已更新）
-                Quaternion muzzleRot = muzzlePosition.transform.rotation;
-                Instantiate(muzzlePrefab, muzzlePosition.transform.position, muzzleRot);
+                Quaternion muzzleCorrection = Quaternion.Euler(0f, 0f, 0f);
+                Quaternion muzzleRot = muzzlePosition.transform.rotation * muzzleCorrection;
+                GameObject flash = Instantiate(muzzlePrefab, muzzlePosition.transform.position, muzzleRot);
+                flash.transform.SetParent(muzzlePosition.transform);
             }
 
             // ---------- 可选：禁用某个对象（如内置枪械模型） ----------

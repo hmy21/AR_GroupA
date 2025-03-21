@@ -40,10 +40,11 @@ public class FullScreenDrag : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         if (distance < tapThreshold)
         {
             Debug.Log("Tap detected, triggering FireWeapon()");
-            if (gunController != null)
+            if (gunController != null && gunController.enabled)
             {
                 gunController.FireWeapon();
             }
         }
+
     }
 }

@@ -55,11 +55,11 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void SetWeapon(WeaponType weapon)
     {
-        // 启用枪械射击控制器，仅当武器为枪械时启用
+        // 若是枪械模式，启用枪械脚本；若是地雷模式，禁用枪械脚本
         if (gunController != null)
             gunController.enabled = (weapon == WeaponType.Gun);
 
-        // 启用地雷放置控制器，仅当武器为地雷时启用
+        // 若是地雷模式，启用地雷脚本；否则禁用
         if (landmineSpawner != null)
             landmineSpawner.enabled = (weapon == WeaponType.Landmine);
 
@@ -79,5 +79,15 @@ public class WeaponSwitcher : MonoBehaviour
         {
             crosshairUI.gameObject.SetActive(weapon == WeaponType.Gun);
         }
+        // 当切换到地雷武器时，清除枪口火光
+        if (weapon == WeaponType.Landmine)
+        {
+            GameObject[] flashes = GameObject.FindGameObjectsWithTag("MuzzleFlash");
+            foreach (GameObject flash in flashes)
+            {
+                Destroy(flash);
+            }
+        }
+        
     }
 }
