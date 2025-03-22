@@ -43,7 +43,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
 
         // 更新分数
-        UpdateScoreText();
+        //UpdateScoreText();
     }
 
     // 继续游戏
@@ -57,7 +57,7 @@ public class PauseMenu : MonoBehaviour
     // 更新分数显示
     void UpdateScoreText()
     {
-        scoreText.text = "Score: " + GameManager.Instance.score.ToString();
+        //scoreText.text = "Score: " + GameManager.Instance.score.ToString();
     }
 
     // 重新开始游戏
