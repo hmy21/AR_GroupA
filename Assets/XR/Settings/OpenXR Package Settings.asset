@@ -201,6 +201,21 @@ MonoBehaviour:
   extensionStrings:
   - XR_KHR_binding_modification
   - XR_EXT_dpad_binding
+--- !u!114 &-6342910540004679184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a1f07dc5afe854f9f12a4194aca3fb, type: 3}
+  m_Name: tvOS
+  m_EditorClassIdentifier: 
+  features: []
+  m_renderMode: 1
+  m_depthSubmissionMode: 0
 --- !u!114 &-5549580624928416659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,13 +573,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0ebc320a151d3408ea1e9fce54d40e, type: 3}
   m_Name: OpenXR Package Settings
   m_EditorClassIdentifier: 
-  Keys: 0100000004000000070000000d0000000e000000
+  Keys: 0100000004000000070000000d0000000e00000019000000
   Values:
   - {fileID: 7719525338436524602}
   - {fileID: 4867728908789913128}
   - {fileID: -768227001003801452}
   - {fileID: -2401948642488277882}
   - {fileID: -2787170862458854930}
+  - {fileID: -6342910540004679184}
 --- !u!114 &388342983968948952
 MonoBehaviour:
   m_ObjectHideFlags: 0
