@@ -1002,6 +1002,7 @@ MonoBehaviour:
   cameraManager: {fileID: 126206538}
   raycastManager: {fileID: 813821015}
   enemyPrefab: {fileID: 1183794980058865011, guid: f37b71063d5f998469d2d23067a31d6b, type: 3}
+  spawnedEnemies: []
 --- !u!4 &320089824
 Transform:
   m_ObjectHideFlags: 0

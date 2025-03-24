@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/ARGameController.cs.meta
-guid: 70c7b8a7b613356468dc4be68a095b48
-========
-guid: 0b1ebbc45ea9cfb4593066a51e5fa7f5
->>>>>>>> main:Assets/Scripts/ARUnitLab.cs.meta
+guid: 2f31c835abe90f04997344c97e4a9f9c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
