@@ -25,7 +25,7 @@ public class LandmineSpawner : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    // 为了方便检测，我们建议地雷的 Collider 设为 Trigger
+    // 为了方便检测，地雷的 Collider 设为 Trigger
     void OnTriggerEnter(Collider other)
     {
         if (hasExploded)
@@ -34,6 +34,10 @@ public class LandmineSpawner : MonoBehaviour
         // 如果进入触发区域的是敌人，则触发爆炸
         if (other.CompareTag("Enemy"))
         {
+            // 销毁触碰地雷的敌人
+            Destroy(other.gameObject);
+
+            // 爆炸并销毁地雷自身
             Explode();
         }
     }
@@ -57,7 +61,6 @@ public class LandmineSpawner : MonoBehaviour
             AudioSource.PlayClipAtPoint(explosionSound, transform.position, explosionVolume);
         }
 
-        // 可在这里添加对周围敌人的伤害逻辑
 
         // 延迟销毁地雷（短暂延迟后销毁，以确保特效播放）
         Destroy(gameObject, 0.1f);
