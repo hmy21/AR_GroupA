@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)//受击
     {
         // Debug.Log("get hit");
-        if (other.CompareTag("Bullet"))
+        if (other.CompareTag("PlayerBullet"))
         {
             takeDamage(10);
         }
@@ -92,6 +92,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+         transform.LookAt(GameManager.Instance.cameraPosition, Vector3.up);
         // Debug.Log("MoveDirection: " + moveDirection);
         // 敌人按当前方向移动
         transform.position += moveDirection * movingSpeed * Time.deltaTime;
@@ -113,7 +114,7 @@ public class Enemy : MonoBehaviour
             //选择一个随机方向并移动
             PickRandomDirection();
             transform.position += moveDirection * movingSpeed * Time.deltaTime;
-            yield return new WaitForSeconds(moveDuration);
+            yield return new WaitForSeconds(moveDuration); 
             Debug.Log("move Direction:"+moveDirection+"movingSpeed:"+movingSpeed);
 
             //停止移动，准备射击
