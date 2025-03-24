@@ -27,6 +27,13 @@ public class GameManager : Singleton<GameManager>
             case GameState.GameOver:
                 HandleGameOver();
                 break;
+            case GameState.PauseMenu:
+                HandlePauseGame();
+                break;
+            case GameState.GameRestart:
+                HandleGameStart();
+                break;
+
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
 
@@ -55,7 +62,9 @@ public class GameManager : Singleton<GameManager>
     private void HandleGameOver()
     {
         Debug.Log("GameOver");
+        UpdateGameState(GameState.GameOver);
     }
+
 
     // 处理游戏开始或重启
     private void HandleGameStart()
@@ -65,6 +74,17 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("GameStart");
     }
 
+    // 暂停游戏
+    public void HandlePauseGame()
+    {
+        UpdateGameState(GameState.PauseMenu); // 切换到暂停状态
+    }
+
+    // 恢复游戏
+    public void ResumeGame()
+    {
+        UpdateGameState(GameState.GameStart); //恢复到游戏状态
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -88,5 +108,5 @@ public enum GameState
     PauseMenu,
     GameOver,
     StartMenu,
-    GameRestar
+    GameRestart
 }
