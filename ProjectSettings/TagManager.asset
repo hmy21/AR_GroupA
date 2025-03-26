@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - MuzzleFlash
   - Bullet
+  - MockPlane
   layers:
   - Default
   - TransparentFX

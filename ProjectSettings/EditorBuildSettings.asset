@@ -5,12 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/zibo 1.unity
-    guid: 36c0a053f2824ca46b122751d6a1995b
   - enabled: 1
-    path: Assets/Scenes/SampleScene -Wenting.unity
-    guid: 99ca2a140aee2364c88763144a5042e1
+    path: Assets/Scenes/Zibo 1.unity
+    guid: bc406153dcf48344a91a013842798b9d
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: a16e23e3e22095d47971eb6a22a04831, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 5d9135f9cc9a9a3479457f69b131fbe5, type: 2}
