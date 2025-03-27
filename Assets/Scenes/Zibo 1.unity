@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18163708, g: 0.2272906, b: 0.30741462, a: 1}
+  m_IndirectSpecularColor: {r: 0.18323892, g: 0.22888438, b: 0.3064014, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -395,6 +395,7 @@ GameObject:
   - component: {fileID: 258893353}
   - component: {fileID: 258893352}
   - component: {fileID: 258893351}
+  - component: {fileID: 258893354}
   m_Layer: 0
   m_Name: AR Session
   m_TagString: Untagged
@@ -444,6 +445,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &258893354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258893350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfc759d0dca287478538e4f3f9e2584, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arLight: {fileID: 290621996}
 --- !u!1 &290621994
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +468,6 @@ GameObject:
   m_Component:
   - component: {fileID: 290621997}
   - component: {fileID: 290621996}
-  - component: {fileID: 290621995}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -462,19 +475,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &290621995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 290621994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cfc759d0dca287478538e4f3f9e2584, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arLight: {fileID: 290621996}
 --- !u!108 &290621996
 Light:
   m_ObjectHideFlags: 0
@@ -545,13 +545,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290621994}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3773238, y: -0.051070374, z: 0.19034936, w: 0.90486777}
+  m_LocalRotation: {x: 0.30687812, y: -0.06550594, z: 0.18587641, w: 0.93112016}
   m_LocalPosition: {x: 492, y: 1992, z: -662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 44.612, y: 4.126, z: 25.453}
+  m_LocalEulerAnglesHint: {x: 36.572, y: -0.564, z: 22.392}
 --- !u!1 &293326495
 GameObject:
   m_ObjectHideFlags: 0
