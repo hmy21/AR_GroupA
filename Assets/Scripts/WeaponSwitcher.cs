@@ -55,30 +55,27 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void SetWeapon(WeaponType weapon)
     {
-        // 若是枪械模式，启用枪械脚本；若是地雷模式，禁用枪械脚本
+        // 启用枪械控制器
         if (gunController != null)
-            gunController.enabled = (weapon == WeaponType.Gun);
+            gunController.gameObject.SetActive(weapon == WeaponType.Gun);
 
-        // 若是地雷模式，启用地雷脚本；否则禁用
+        // 启用地雷放置控制器，并设置标志，仅当武器为地雷时启用
         if (landmineSpawner != null)
-            landmineSpawner.enabled = (weapon == WeaponType.Landmine);
+        {
+            landmineSpawner.gameObject.SetActive(weapon == WeaponType.Landmine);
+            landmineSpawner.isPlacementEnabled = (weapon == WeaponType.Landmine);
+        }
 
-        // 更新武器图标
+        // 更新 UI 图标和显示
         if (weaponIcon != null)
-        {
             weaponIcon.sprite = (weapon == WeaponType.Gun) ? gunIcon : landmineIcon;
-        }
 
-        // 切换场景中显示的对象：枪械模型与准星
         if (gunModel != null)
-        {
             gunModel.SetActive(weapon == WeaponType.Gun);
-        }
-
         if (crosshairUI != null)
-        {
             crosshairUI.gameObject.SetActive(weapon == WeaponType.Gun);
-        }
+
+        Debug.Log($"Weapon set to: {weapon}. Gun active: {(gunController != null && gunController.gameObject.activeSelf)}, Landmine placement enabled: {(landmineSpawner != null && landmineSpawner.isPlacementEnabled)}");
         // 当切换到地雷武器时，清除枪口火光
         if (weapon == WeaponType.Landmine)
         {

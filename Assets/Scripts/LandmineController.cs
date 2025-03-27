@@ -34,6 +34,7 @@ public class LandmineController : MonoBehaviour
         // 当敌人进入触发区域时，触发爆炸
         if (other.CompareTag("Enemy"))
         {
+           
             // 销毁触碰地雷的敌人
             Destroy(other.gameObject);
             Explode();

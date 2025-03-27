@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class LandmineSpawner : MonoBehaviour
 {
     [Header("Landmine Placement Settings")]
-    [Tooltip("地雷预制件，必须包含 LandmineController 脚本")]
+    [Tooltip("地雷预制件，必须包含地雷控制器脚本")]
     public GameObject landminePrefab;
 
     [Tooltip("是否允许多次放置地雷；如果为 false，则只允许放置一次")]
@@ -26,9 +26,12 @@ public class LandmineSpawner : MonoBehaviour
     // 记录已放置的地雷数量
     private int placementsCount = 0;
 
+    [Header("Placement Control")]
+    [Tooltip("只有当此标志为 true 时，才允许放置地雷")]
+    public bool isPlacementEnabled = false;
+
     void Awake()
     {
-        // 自动查找场景中的 ARRaycastManager，无需手动拖拽
         if (arRaycastManager == null)
         {
             arRaycastManager = FindObjectOfType<ARRaycastManager>();
@@ -41,26 +44,25 @@ public class LandmineSpawner : MonoBehaviour
 
     void Update()
     {
-        // 仅在触摸开始时进行检测
-        if (Input.touchCount > 0)
+
+
+        // 在触摸开始时处理放置逻辑
+        if (Input.touchCount > 0 && isPlacementEnabled)
         {
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                // 如果触摸发生在 UI 上则忽略
                 if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                     return;
 
                 Vector2 touchPosition = touch.position;
-                if (arRaycastManager != null && arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
+                if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
                 {
                     Pose hitPose = hits[0].pose;
 
-                    // 如果不允许多次放置，且已放置次数达到上限，则不放置
                     if (!allowMultiplePlacements && placementsCount >= maxPlacements)
                         return;
 
-                    // 在检测到的平面位置生成地雷预制件
                     Instantiate(landminePrefab, hitPose.position, hitPose.rotation);
                     placementsCount++;
                     Debug.Log("Placed landmine at: " + hitPose.position);
