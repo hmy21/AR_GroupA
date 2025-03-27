@@ -3,7 +3,13 @@ guid: 0b1ebbc45ea9cfb4593066a51e5fa7f5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _stateText: {instanceID: 0}
+  - _planeText: {instanceID: 0}
+  - _arPlaneManager: {instanceID: 0}
+  - _arPointCloudManager: {instanceID: 0}
+  - _arRaycastManager: {instanceID: 0}
+  - _robotPrefab: {fileID: 1727021956971022, guid: 55d9ed943dc797141a39b7368f7a74c3, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
