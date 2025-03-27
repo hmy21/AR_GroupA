@@ -312,4 +312,4 @@ MonoBehaviour:
   explosionEffectPrefab: {fileID: 0}
   explosionSound: {fileID: 0}
   explosionVolume: 1
-  lifeTime: 1
+  lifeTime: 5
