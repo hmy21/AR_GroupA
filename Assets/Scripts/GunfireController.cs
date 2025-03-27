@@ -166,7 +166,12 @@ namespace BigRookGames.Weapons
                 Debug.Log("Raycast hit: " + hit.collider.name + " at " + hit.point);
                 if (hit.collider.CompareTag("Enemy"))
                 {
-                    Destroy(hit.collider.gameObject);
+                    Enemy enemy = hit.collider.GetComponent<Enemy>();
+                    if (enemy != null)
+                    {
+                        enemy.takeDamage(10);
+                    }
+                    //Destroy(hit.collider.gameObject);
                     Debug.Log("Enemy destroyed at " + hit.point);
                 }
                 else
