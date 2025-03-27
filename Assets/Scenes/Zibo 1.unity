@@ -1622,7 +1622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon: 0
   gunController: {fileID: 1844250800}
-  landmineSpawner: {fileID: 0}
+  landmineSpawner: {fileID: 1319706892}
   switchButton: {fileID: 0}
   weaponIcon: {fileID: 0}
   gunIcon: {fileID: 0}
@@ -2180,6 +2180,7 @@ MonoBehaviour:
   allowMultiplePlacements: 1
   maxPlacements: 1
   arRaycastManager: {fileID: 0}
+  isPlacementEnabled: 1
 --- !u!1 &1388936356
 GameObject:
   m_ObjectHideFlags: 0
@@ -3169,6 +3170,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3648419051826383303, guid: d40abf49e9bf0814c886f8f5dc7fd8c5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648419051826383303, guid: d40abf49e9bf0814c886f8f5dc7fd8c5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648419051826383303, guid: d40abf49e9bf0814c886f8f5dc7fd8c5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3648419051826383303, guid: d40abf49e9bf0814c886f8f5dc7fd8c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.148
