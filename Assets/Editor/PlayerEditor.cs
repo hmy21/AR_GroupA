@@ -15,11 +15,11 @@ public class PlayerEditor : Editor
         Player player = (Player)target;
 
         // 添加按钮
-        if (GUILayout.Button("测试受伤(getDamage)"))
+        if (GUILayout.Button("test getDamage()"))
         {
             player.getDamage();
         }
-        if (GUILayout.Button("测试resetPlayer()"))
+        if (GUILayout.Button("test resetPlayer()"))
         {
             player.resetPlayer();
         }

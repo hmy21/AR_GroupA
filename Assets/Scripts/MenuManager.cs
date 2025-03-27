@@ -25,10 +25,7 @@ public class MenuManager : Singleton<MenuManager>
 
     private void OnGameStateChange(GameState gameState)
     {
-        if(gameState == GameState.GameOver){
-            gameOverMenu.SetActive(true);
-        }else if(gameState == GameState.StartMenu){
-            gameOverMenu.SetActive(false);
-        }
+        gameOverMenu.SetActive(gameState == GameState.GameOver);
+        
     }
 }

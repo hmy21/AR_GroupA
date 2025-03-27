@@ -87,6 +87,5 @@ public enum GameState
     GameStart,
     PauseMenu,
     GameOver,
-    StartMenu,
-    GameRestar
+
 }
