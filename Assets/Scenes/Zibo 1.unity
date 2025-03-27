@@ -1154,7 +1154,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1070836212}
-  scoreText: {fileID: 0}
+  pauseButton: {fileID: 293326497}
+  gameOverMenuUI: {fileID: 1070836212}
+  scoreText: {fileID: 1665300344}
   restartButton: {fileID: 562063174}
 --- !u!114 &763945721
 MonoBehaviour:
@@ -1413,6 +1415,7 @@ RectTransform:
   - {fileID: 240979809}
   - {fileID: 549823074}
   - {fileID: 1250107669}
+  - {fileID: 934382495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1785,19 +1788,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934382494}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7407408, y: 0.7407408, z: 0.7407408}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 881150825}
   - {fileID: 1254429393}
   - {fileID: 387156025}
-  m_Father: {fileID: 1021871897}
+  m_Father: {fileID: 881760395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 741, y: -418}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &965260889
@@ -1937,8 +1940,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 934382495}
+  m_Children: []
   m_Father: {fileID: 763945724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2919,7 +2921,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1852512057}
-  scoreText: {fileID: 0}
+  pauseButton: {fileID: 293326497}
+  gameOverMenuUI: {fileID: 1070836212}
+  scoreText: {fileID: 1250107667}
   restartButton: {fileID: 920899592}
 --- !u!114 &1393709781
 MonoBehaviour:

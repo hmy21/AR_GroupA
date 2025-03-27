@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro; 
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
-    public Text scoreText;
+    public Button pauseButton;
+
+    public GameObject gameOverMenuUI;
+    public TextMeshProUGUI scoreText;
     public Button restartButton;
 
     private bool isPaused = false;
@@ -14,6 +18,7 @@ public class PauseMenu : MonoBehaviour
     {
         // 隐藏暂停菜单
         pauseMenuUI.SetActive(false);
+        gameOverMenuUI.SetActive(false);
 
         // 监听按钮点击
         restartButton.onClick.AddListener(RestartGame);
@@ -65,6 +70,10 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         pauseMenuUI.SetActive(true);
+        if (pauseButton != null)
+    {
+        pauseButton.gameObject.SetActive(false);
+    }
         Time.timeScale = 0f; // 暂停游戏
         isPaused = true;
         UpdateScoreText(); // 更新分数
@@ -74,6 +83,10 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenuUI.SetActive(false);
+        if (pauseButton != null)
+    {
+        pauseButton.gameObject.SetActive(true);
+    }
         Time.timeScale = 1f; // 恢复游戏
         isPaused = false;
     }
@@ -81,7 +94,11 @@ public class PauseMenu : MonoBehaviour
     // 显示游戏结束菜单
     void ShowGameOverMenu()
     {
-        pauseMenuUI.SetActive(true); // 显示菜单
+        gameOverMenuUI.SetActive(true); // 显示菜单
+        if (pauseButton != null)
+    {
+        pauseButton.gameObject.SetActive(false);
+    }
         scoreText.text = "Final Score: " + GameManager.Instance.score.ToString();
         Time.timeScale = 0f;
     }
@@ -91,7 +108,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + GameManager.Instance.score.ToString(); // ✅ 更新分数
+            scoreText.text = "Score: " + GameManager.Instance.score.ToString(); 
         }
     }
 
