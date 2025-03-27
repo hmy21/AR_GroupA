@@ -9,13 +9,13 @@ public class Player : MonoBehaviour
     public int MaxHealth = 3;
     public int playerHealth = 3;
     [SerializeField] List<GameObject> Hearts;
-    // [SerializeField] 
+    [SerializeField] AudioClip beHitedAudio;
 
     public void getDamage()
     {
         playerHealth --;
         Hearts[playerHealth].SetActive(false);
-
+        AudioSource.PlayClipAtPoint(beHitedAudio,transform.position);
         if (playerHealth <= 0)
         {
             GameManager.Instance.UpdateGameState(GameState.GameOver);
