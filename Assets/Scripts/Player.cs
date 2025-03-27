@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
 {
     public int MaxHealth = 3;
     public int playerHealth = 3;
+    [SerializeField] List<GameObject> Hearts;
 
     public void getDamage()
     {
         playerHealth --;
+        Hearts[playerHealth].SetActive(false);
         if (playerHealth <= 0)
         {
             GameManager.Instance.UpdateGameState(GameState.GameOver);
@@ -54,5 +56,8 @@ public class Player : MonoBehaviour
     private void resetPlayer()
     {
         playerHealth = MaxHealth;
+        foreach(GameObject gameObject in Hearts){
+            gameObject.SetActive(true);
+        }
     }
 }
