@@ -6,6 +6,7 @@ public class MenuManager : Singleton<MenuManager>
 {
 
     public GameObject gameOverMenu;
+    public GameObject canvas;
     // Start is called before the first frame update
     void Start()
     {

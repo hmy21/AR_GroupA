@@ -7,10 +7,9 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     public Button pauseButton;
-
     public GameObject gameOverMenuUI;
     public TextMeshProUGUI scoreText;
-    public Button restartButton;
+    public GameObject canvas;
     public Button RestartButton;
 
     private bool isPaused = false;
@@ -18,11 +17,11 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         // 隐藏暂停菜单
+        RestartButton.gameObject.SetActive(false);
         pauseMenuUI.SetActive(false);
         gameOverMenuUI.SetActive(false);
 
         // 监听按钮点击
-        restartButton.onClick.AddListener(RestartGame);
         RestartButton.onClick.AddListener(RestartGame);
 
         // 监听 GameState 变化
@@ -96,6 +95,8 @@ public class PauseMenu : MonoBehaviour
     // 显示游戏结束菜单
     void ShowGameOverMenu()
     {
+        canvas.SetActive(false);
+        RestartButton.gameObject.SetActive(true);
         gameOverMenuUI.SetActive(true); // 显示菜单
         if (pauseButton != null)
     {
