@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     private Vector3 moveDirection = new Vector3(0,0,0); // 记录当前的移动方向
     //private Vector3 moveDirection = new Vector3(1, 0, 0);
     //moveDirection = new Vector3(1, 0, 0); // 向右移动
+    private Animator animator;
 
     public void takeDamage(int damage)
     {
@@ -74,6 +75,7 @@ public class Enemy : MonoBehaviour
         GameManager.OnGameStateChange += OnGameStateChange;
 
         // 启动敌人行为的协程
+        animator = GetComponent<Animator>();
         StartCoroutine(EnemyBehaviorLoop());
         Debug.Log("Enemy Behavior Coroutine Started");
 
@@ -120,13 +122,16 @@ public class Enemy : MonoBehaviour
         {
             // moveDirection= new Vector3(1,0,0);
             Debug.Log("Enemy is moving");
+
             //选择一个随机方向并移动
+            animator.SetBool("isWalking", true);
             PickRandomDirection();
             transform.position += moveDirection * movingSpeed * Time.deltaTime;
             yield return new WaitForSeconds(moveDuration); 
             Debug.Log("move Direction:"+moveDirection+"movingSpeed:"+movingSpeed);
 
             //停止移动，准备射击
+            animator.SetBool("isWalking", false);
             moveDirection = Vector3.zero;
             transform.LookAt(GameManager.Instance.cameraPosition, Vector3.up);
             Debug.Log("Enemy stopped moving, preparing to shoot");
