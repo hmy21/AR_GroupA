@@ -26,7 +26,7 @@ public class FullScreenDrag : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         if (crosshairRect != null)
         {
-            // 拖拽准星
+
             crosshairRect.anchoredPosition += eventData.delta / (GetComponentInParent<Canvas>().scaleFactor);
             isDragging = true;
         }
@@ -36,7 +36,7 @@ public class FullScreenDrag : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         float distance = (eventData.position - pointerDownPos).magnitude;
         Debug.Log($"OnPointerUp invoked, distance: {distance}");
-        // 如果移动距离小于阈值，认为是轻点
+
         if (distance < tapThreshold)
         {
             Debug.Log("Tap detected, triggering FireWeapon()");
