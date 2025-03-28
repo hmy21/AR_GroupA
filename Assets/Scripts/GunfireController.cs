@@ -11,13 +11,13 @@ namespace BigRookGames.Weapons
         public Vector2 audioPitch = new Vector2(.9f, 1.1f);
 
         // --- Muzzle ---
-        [Tooltip("枪口火光预制件")]
+        [Tooltip("Muzzle Flash Prefab")]
         public GameObject muzzlePrefab;
-        [Tooltip("枪口位置对象，用于确定火光/子弹的生成位置")]
+        [Tooltip("Muzzle position object, used to determine the location where flash/bullets are generated")]
         public GameObject muzzlePosition;
 
         // --- Config ---
-        public float shotDelay = 0.5f; // 射击间隔
+        public float shotDelay = 0.5f; // Shooting interval
 
         // --- Options ---
         public GameObject scope;
@@ -25,22 +25,22 @@ namespace BigRookGames.Weapons
         private bool lastScopeState;
 
         // --- Projectile (Bullet) ---
-        [Tooltip("子弹预制件，必须包含 Rigidbody、Collider 和 BulletController 脚本")]
+        [Tooltip("Bullet prefab, must contain Rigidbody, Collider and BulletController scripts")]
         public GameObject projectilePrefab;
-        [Tooltip("当发射子弹时，可能需要禁用某个枪械模型（例如内置枪械效果）")]
+        [Tooltip("When firing bullets, you may need to disable a gun model (such as built-in gun effects)")]
         public GameObject projectileToDisableOnFire;
 
         // --- Timing ---
         [SerializeField] private float timeLastFired;
 
-        // --- 子弹发射的初始力度 ---
+        // --- The initial force of the bullet launch ---
         [Header("Bullet Settings")]
-        [Tooltip("子弹发射时施加的初始力")]
+        [Tooltip("The initial force applied when the bullet is fired")]
         public float bulletForce = 2000f;
 
         // --- Crosshair UI ---
         [Header("Crosshair Settings")]
-        [Tooltip("准星 UI 元素 (RectTransform)，用于确定射击方向")]
+        [Tooltip("Crosshair UI element (RectTransform) to determine the direction of the shot")]
         public RectTransform crosshairUI;
 
         private void Start()
@@ -53,7 +53,7 @@ namespace BigRookGames.Weapons
 
         private void Update()
         {
-            // 如果你需要在此进行其他逻辑，如 scopeActive 切换
+            // If you need to perform other logic here, such as scopeActive switching
             if (scope && lastScopeState != scopeActive)
             {
                 lastScopeState = scopeActive;
@@ -62,7 +62,7 @@ namespace BigRookGames.Weapons
         }
 
         /// <summary>
-        /// 当 FullScreenDrag 检测到轻点屏幕时，会调用此方法触发射击
+        /// When FullScreenDrag detects a tap on the screen, this method is called to trigger shooting.
         /// </summary>
         public void FireWeapon()
         {
@@ -70,71 +70,70 @@ namespace BigRookGames.Weapons
             Camera cam = Camera.main;
             Debug.Log("GunfireController.FireWeapon() called");
 
-            // 计算基于准星的射线，用于销毁敌人
+            // Calculates a ray based on the crosshair to destroy enemies
             ShootFromCrosshair();
 
 
 
-            // 以下是原先发射子弹、生成枪口火光、播放音效等逻辑
-            // 若你需要子弹+火光，就保留；若你只想销毁敌人，可以注释掉子弹逻辑
+            // The following is the original logic of firing bullets, generating muzzle flash, playing sound effects, etc.
+            // If you need bullets + flash, keep it; if you only want to destroy the enemy, you can comment out the bullet logic
 
-            // ---------- 子弹逻辑 ----------
-           /*rojectilePrefab != null && muzzlePosition != null)
+            // ---------- Bullet logic ----------
+            /*rojectilePrefab != null && muzzlePosition != null)
             {
-                // 定义 spawnDistance，用于将准星的屏幕坐标转换为世界坐标
-                float spawnDistance = 0f; // 例如 1 米
-                Vector3 screenPoint = new Vector3(crosshairUI.position.x, crosshairUI.position.y, spawnDistance);
-                Vector3 targetPoint = cam.ScreenToWorldPoint(screenPoint);
-                // 计算发射方向：从枪口位置指向目标点
-                Vector3 fireDir = (targetPoint - muzzlePosition.transform.position).normalized;
+            // Define spawnDistance, which is used to convert the screen coordinates of the crosshair to world coordinates
+            float spawnDistance = 0f; // For example, 1 meter
+            Vector3 screenPoint = new Vector3(crosshairUI.position.x, crosshairUI.position.y, spawnDistance);
+            Vector3 targetPoint = cam.ScreenToWorldPoint(screenPoint);
+            // Calculate the firing direction: from the muzzle position to the target point
+            Vector3 fireDir = (targetPoint - muzzlePosition.transform.position).normalized;
 
-                // 计算子弹生成位置：从枪口位置沿 fireDir 偏移一定距离，避免与枪口重叠
-                float offsetDistance = 0.5f;
-                Vector3 spawnPos = muzzlePosition.transform.position + fireDir * offsetDistance;
-                // 固定 Y 坐标与枪口一致
-                spawnPos.y = muzzlePosition.transform.position.y;
+            // Calculate the bullet generation position: offset a certain distance from the muzzle position along fireDir to avoid overlapping with the muzzle
+            float offsetDistance = 0.5f;
+            Vector3 spawnPos = muzzlePosition.transform.position + fireDir * offsetDistance;
+            // Fix the Y coordinate to be consistent with the muzzle
+            spawnPos.y = muzzlePosition.transform.position.y;
 
-                // 生成基础旋转，使子弹朝向 fireDir
-                Quaternion baseRot = Quaternion.LookRotation(fireDir, Vector3.up);
+            // Generate the base rotation so that the bullet faces fireDir
+            Quaternion baseRot = Quaternion.LookRotation(fireDir, Vector3.up);
 
-                // 旋转补偿：如果子弹默认朝向是局部 X 轴，我们需要将其调整到正 Z 轴
-                // 尝试使用 -90° 或 90°，根据实际效果调整
-                Quaternion correction = Quaternion.Euler(0, 0, 0);  // 若不合适，可试 Quaternion.Euler(0, 90f, 0)
-                Quaternion spawnRot = baseRot * correction;
+            // Rotation compensation: If the bullet faces the local X axis by default, we need to adjust it to the positive Z axis
+            // Try using -90° or 90°, adjust according to the actual effect
+            Quaternion correction = Quaternion.Euler(0, 0, 0); // If it is not suitable, try Quaternion.Euler(0, 90f, 0)
+            Quaternion spawnRot = baseRot * correction;
 
-                GameObject bullet = Instantiate(projectilePrefab, spawnPos, spawnRot);
-                bullet.transform.parent = null; // 脱离父级
+            GameObject bullet = Instantiate(projectilePrefab, spawnPos, spawnRot); 
+            bullet.transform.parent = null; // Detach from parent 
 
-                Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.AddForce(fireDir * bulletForce, ForceMode.Impulse);
-                }
+            Rigidbody rb = bullet.GetComponent<Rigidbody>(); 
+            if (rb != null) 
+            { 
+            rb.AddForce(fireDir * bulletForce, ForceMode.Impulse); 
+            } 
 
-                Debug.Log($"Bullet spawned at: {spawnPos}, fireDir: {fireDir}, bullet.forward: {bullet.transform.forward}");
+            Debug.Log($"Bullet spawned at: {spawnPos}, fireDir: {fireDir}, bullet.forward: {bullet.transform.forward}"); 
             }*/
-
             if (muzzlePrefab != null && muzzlePosition != null)
             {
-                // 使用与子弹相同的 spawnRot 生成火光，使火光和子弹方向一致
-                // 这里直接使用 muzzlePosition 的 forward 方向（假设 UpdateGunAim() 或其他逻辑已更新）
+                // Use the same spawnRot as the bullet to generate the firelight, so that the firelight and the bullet are in the same direction
+                // Here we directly use the forward direction of muzzlePosition (assuming UpdateGunAim() or other logic has been updated)
                 Quaternion muzzleCorrection = Quaternion.Euler(0f, 0f, 0f);
                 Quaternion muzzleRot = muzzlePosition.transform.rotation * muzzleCorrection;
                 GameObject flash = Instantiate(muzzlePrefab, muzzlePosition.transform.position, muzzleRot);
                 flash.transform.SetParent(muzzlePosition.transform);
             }
 
-            // ---------- 可选：禁用某个对象（如内置枪械模型） ----------
+            // ---------- Optional: Disable an object (such as a built-in gun model ----------
             if (projectileToDisableOnFire != null)
             {
                 projectileToDisableOnFire.SetActive(false);
                 Invoke("ReEnableDisabledProjectile", 3f);
             }
 
-            // ---------- 播放枪声 ----------
+            // ---------- Play gunshot----------
             if (source != null && GunShotClip != null)
             {
-                // 播放音效
+                // Play sound effects
                 source.PlayOneShot(GunShotClip);
             }
         }
@@ -146,7 +145,7 @@ namespace BigRookGames.Weapons
         }
 
         /// <summary>
-        /// 以准星为屏幕坐标，射线检测敌人并销毁
+        /// Use the crosshairs as screen coordinates, ray-detect enemies and destroy them
         /// </summary>
         private void ShootFromCrosshair()
         {
@@ -156,11 +155,11 @@ namespace BigRookGames.Weapons
             if (cam == null || crosshairUI == null)
                 return;
 
-            // 从准星屏幕坐标生成射线
+            // Generates a ray from the crosshair screen coordinates
             Ray ray = cam.ScreenPointToRay(crosshairUI.position);
             Debug.Log("Ray origin: " + ray.origin + ", direction: " + ray.direction);
 
-            // 若射线击中敌人，则销毁
+            // If the ray hits an enemy, it is destroyed
             if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
             {
                 Debug.Log("Raycast hit: " + hit.collider.name + " at " + hit.point);
