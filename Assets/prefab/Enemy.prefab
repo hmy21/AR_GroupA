@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4495126847532960}
   - component: {fileID: 82662009655984574}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 33607042688850114}
   - component: {fileID: 23822835360651118}
   - component: {fileID: 135486300058979802}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: head_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4881618687285602}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: HeadHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 4446570715947420}
   - component: {fileID: 33996977794455156}
   - component: {fileID: 23172144415016112}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: robot_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 136481785915939718}
   - component: {fileID: 114215299765194568}
   - component: {fileID: 8536185239341324226}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 135114281960105616}
   - component: {fileID: 54068771378272894}
   - component: {fileID: 138450344797439652}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: counterweight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -583,7 +583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5978449854388338518}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: shotPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}

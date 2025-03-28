@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject gameOverMenuUI;
     public TextMeshProUGUI scoreText;
     public Button restartButton;
+    public Button RestartButton;
 
     private bool isPaused = false;
 
@@ -22,6 +23,7 @@ public class PauseMenu : MonoBehaviour
 
         // 监听按钮点击
         restartButton.onClick.AddListener(RestartGame);
+        RestartButton.onClick.AddListener(RestartGame);
 
         // 监听 GameState 变化
         GameManager.OnGameStateChange += OnGameStateChange;
@@ -117,6 +119,6 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f; // 恢复游戏速度
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        GameManager.Instance.UpdateGameState(GameState.GameStart); // ✅ 重新开始时回到 GameStart 状态
+        GameManager.Instance.UpdateGameState(GameState.GameStart); // 重新开始时回到 GameStart 状态
     }
 }
