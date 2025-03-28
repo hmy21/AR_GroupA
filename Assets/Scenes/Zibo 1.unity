@@ -475,7 +475,7 @@ MonoBehaviour:
   currentGameState: 0
   gameCamera: {fileID: 1388936362}
   score: 0
-  scoreText: {fileID: 1665300344}
+  scoreText: {fileID: 1250107667}
 --- !u!114 &258893356
 MonoBehaviour:
   m_ObjectHideFlags: 0
