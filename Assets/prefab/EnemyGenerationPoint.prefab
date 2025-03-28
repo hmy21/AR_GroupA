@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GenerateTime: 5
   currentTime: 0
-  EnemyPrefabs: {fileID: 1855524566960943093, guid: 2a19f04be9076634285d980fe5cf4249, type: 3}
+  EnemyPrefabs: {fileID: 6786700457583579041, guid: 3cd8c4ffce9f38742940c86ced3cb131, type: 3}
   isActive: 0
 --- !u!1 &3431191282684383444
 GameObject:
