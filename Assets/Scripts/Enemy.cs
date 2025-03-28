@@ -92,9 +92,18 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         transform.LookAt(GameManager.Instance.cameraPosition, Vector3.up);
-        // Debug.Log("MoveDirection: " + moveDirection);
-        // 敌人按当前方向移动
+        // transform.LookAt(GameManager.Instance.cameraPosition, Vector3.up);
+        // // Debug.Log("MoveDirection: " + moveDirection);
+        // // 敌人按当前方向移动
+        // transform.position += moveDirection * movingSpeed * Time.deltaTime;
+        // 面朝移动方向
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        }
+
+        // 移动
         transform.position += moveDirection * movingSpeed * Time.deltaTime;
     }
 
@@ -119,6 +128,7 @@ public class Enemy : MonoBehaviour
 
             //停止移动，准备射击
             moveDirection = Vector3.zero;
+            transform.LookAt(GameManager.Instance.cameraPosition, Vector3.up);
             Debug.Log("Enemy stopped moving, preparing to shoot");
             yield return new WaitForSeconds(pauseDuration);
 
