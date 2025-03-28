@@ -8,6 +8,7 @@ TagManager:
   - MuzzleFlash
   - Bullet
   - MockPlane
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
