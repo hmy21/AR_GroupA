@@ -119,7 +119,10 @@ public class PauseMenu : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f; // 恢复游戏速度
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameOverMenuUI.SetActive(false);
+        RestartButton.gameObject.SetActive(false);
+        canvas.gameObject.SetActive(true);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.Instance.UpdateGameState(GameState.GameStart); // 重新开始时回到 GameStart 状态
     }
 }

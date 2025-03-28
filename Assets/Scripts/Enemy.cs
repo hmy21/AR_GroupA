@@ -130,7 +130,7 @@ public class Enemy : MonoBehaviour
 
     private void OnGameStateChange(GameState gameState)
     {
-        if (gameState == GameState.GameOver)
+        if (gameState == GameState.GameStart)
         {
             Destroy(gameObject);
         }
