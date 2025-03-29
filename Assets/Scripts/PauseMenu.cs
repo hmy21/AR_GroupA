@@ -70,6 +70,7 @@ public class PauseMenu : MonoBehaviour
     // 点击暂停按钮时调用
     public void PauseGame()
     {
+        canvas.SetActive(false);
         pauseMenuUI.SetActive(true);
         if (pauseButton != null)
     {
@@ -83,6 +84,7 @@ public class PauseMenu : MonoBehaviour
     // 继续游戏
     public void ResumeGame()
     {
+        canvas.SetActive(true);
         pauseMenuUI.SetActive(false);
         if (pauseButton != null)
     {

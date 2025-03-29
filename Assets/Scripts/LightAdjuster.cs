@@ -30,7 +30,7 @@ public class LightAdjuster : MonoBehaviour
     private void AdjustLight(float brightness)
     {
         // 亮度阈值
-        float minBrightness = 0.2f; // 环境变暗时
+        float minBrightness = 0.5f; // 环境变暗时
         float maxIntensity = 3.0f;  // 最大光强
 
         // 根据环境亮度调节灯光强度
