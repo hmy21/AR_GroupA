@@ -2753,7 +2753,7 @@ MonoBehaviour:
   pauseButton: {fileID: 293326497}
   gameOverMenuUI: {fileID: 1070836212}
   scoreText: {fileID: 1250107667}
-  canvas: {fileID: 0}
+  canvas: {fileID: 881760391}
   RestartButton: {fileID: 920899592}
 --- !u!114 &1393709781
 MonoBehaviour:
